@@ -10,5 +10,5 @@ npm i -g xietian-cli
 ## usage
 
 ```sh
-xietian create <projectName>
+xietian create
 ```
