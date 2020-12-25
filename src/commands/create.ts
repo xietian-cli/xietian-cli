@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import { Command, CommandArgsProvider } from 'func'
 const path = require('path')
 const fs = require('fs')
@@ -67,13 +68,15 @@ export class Create {
     shell.rm('-rf', CACHE_DIR)
 
     // 修改package.json
-    const packagejsonPath = path.resolve(process.cwd(), `./${res.name}/package.json`);
+    const packagejsonPath = path.join(path.resolve(), `${res.name}/package.json`);
+
     const packageJson = Object.assign(
       require(packagejsonPath),
       {
         name: res.name,
         author: res.author,
-        description: res.description
+        description: res.description,
+        version: res.version
       }
     );
 
@@ -85,6 +88,11 @@ export class Create {
       .replace('PROJECT_NAME', res.name)
       .replace('DESCRIPTION', res.description);
     fs.writeFileSync(readmePath, data);
+
+    console.log(`
+      ${chalk.green("项目已创建：")}
+      ${path.join(path.resolve(), res.name)}
+    `)
   }
 }
 
@@ -93,6 +101,7 @@ interface InquirerResult {
   name: string;
   description: string;
   author: string;
+  version: string;
 }
 class Questions {
   private repos: any[];
@@ -129,6 +138,14 @@ class Questions {
         message: '作者',
         default() {
           return 'Your Name <you@example.com>';
+        }
+      },
+      {
+        name: 'version',
+        type: 'input',
+        message: '版本',
+        default() {
+          return '0.0.1';
         }
       }
     ];

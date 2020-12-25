@@ -1,10 +1,10 @@
 {
   "name": "xietian-cli",
-  "version": "0.0.4",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "func-service dev",
+    "dev": "func-service dev",
     "build": "func-service build",
     "test": "ava"
   },
@@ -23,12 +23,12 @@
     "@types/node": "^14.0.22",
     "@zeit/ncc": "^0.22.3",
     "ava": "^3.5.0",
-    "eslint": "^7.16.0",
     "func-service": "^1.0.5",
     "typescript": "^3.9.6"
   },
   "files": [
-    "dist",
+    "dist/bin.js",
+    "dist/index.js",
     "README.md"
   ],
   "bin": {
