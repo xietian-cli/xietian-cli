@@ -1,6 +1,7 @@
 import { Option, RegisterProvider } from 'func'
 import pkg from '../../package.json'
-
+import boxen, { BorderStyle } from "boxen";
+import chalk from 'chalk';
 @Option({
   name: 'help',
   alias: 'h',
@@ -8,7 +9,9 @@ import pkg from '../../package.json'
 })
 export class Help {
   constructor(regs: RegisterProvider) {
-    console.log(pkg.name.toUpperCase())
+    const welcome = `欢迎使用 ${chalk.magenta(pkg.name)}\nWelcome to ${chalk.magenta(pkg.name)}\n${chalk.magenta(pkg.name)}へ、ようこそ`
+    console.log(boxen(welcome, {padding: 1, borderStyle: BorderStyle.Round, borderColor: 'magenta'}));
+
     console.log('')
 
     regs.commands.forEach(data => {

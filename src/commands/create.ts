@@ -7,17 +7,13 @@ import ora from 'ora'
 import * as Inquirer from 'inquirer'
 import * as shell from 'shelljs'
 import { promisify } from "util";
-// const Inquirer = require('inquirer')
-// const shell = require('shelljs')
-// const { promisify } = require('util')
+
 let downLoadGit = require('download-git-repo')
 let ncp = require('ncp')
 downLoadGit = promisify(downLoadGit)
 ncp = promisify(ncp)
 
-// 缓存目录
 const CACHE_DIR = `${process.env[process.platform === 'darwin' ? 'HOME' : 'USERPROFILE']}/.xietian_cli_cache`
-// 组织名称
 const ORG = "xietian-cli";
 @Command({
   name: 'create',
@@ -109,11 +105,9 @@ export class Create {
 
     const dest = await this.useLoading(this.download, '下载模板')(res.template);
 
-    // 将下载的文件拷贝到当前执行命令的目录下
     await ncp(dest, path.join(path.resolve(), res.name))
     shell.rm('-rf', CACHE_DIR)
 
-    // // 修改package.json
     const packagejsonPath = path.join(path.resolve(), `${res.name}/package.json`);
 
     const packageJson = Object.assign(
